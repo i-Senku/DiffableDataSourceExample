@@ -11,9 +11,17 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
-
-
+    
+    @IBAction func pushToWith(_ sender: Any) {
+        let viewController = WithDiffableDataSourceVC()
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    
+    @IBAction func withOutDiffable(_ sender: Any) {
+        let viewController = WithOutDiffableDataSourceVC()
+        navigationController?.pushViewController(viewController, animated: true)
+    }
 }
 
