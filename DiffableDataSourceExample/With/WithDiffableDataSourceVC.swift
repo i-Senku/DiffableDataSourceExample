@@ -17,16 +17,11 @@ final class WithDiffableDataSourceVC: UIViewController {
         return tableView
     }()
     
-    private lazy var dataSource = UITableViewDiffableDataSource<DiffableSection, DiffableItem>(tableView: tableView) { tableView, indexPath, itemIdentifier in
-        let cell = UITableViewCell()
-        cell.textLabel?.text = String(itemIdentifier.title)
-        return cell
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         addSubViews()
         configureContents()
+        viewModel.viewDidLoad(tableView: tableView)
     }
 }
 
@@ -36,13 +31,11 @@ extension WithDiffableDataSourceVC {
     @objc
     private func addButtonTapped() {
         viewModel.addItem()
-        updateDataSource()
     }
     
     @objc
     private func removeButtonTapped() {
-        viewModel.removeItem()
-        updateDataSource()
+       viewModel.removeItem()
     }
 }
 
@@ -68,14 +61,6 @@ extension WithDiffableDataSourceVC {
             UIBarButtonItem(image: .add, style: .plain, target: self, action: #selector(addButtonTapped)),
             UIBarButtonItem(image: .remove, style: .plain, target: self, action: #selector(removeButtonTapped))
         ]
-        updateDataSource()
-    }
-    
-    private func updateDataSource() {
-        var snapshot = NSDiffableDataSourceSnapshot<DiffableSection, DiffableItem>()
-        snapshot.appendSections([.main])
-        snapshot.appendItems(viewModel.items, toSection: .main)
-        dataSource.apply(snapshot, animatingDifferences: true)
     }
 }
 
