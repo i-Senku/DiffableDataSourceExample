@@ -23,10 +23,10 @@ class WithDiffableViewModel {
     private func setupTableViewDataSource(tableView: UITableView) {
         dataSource = UITableViewDiffableDataSource<DiffableSection, DiffableItem>(
             tableView: tableView) { tableView, indexPath, itemIdentifier in
-            let cell = UITableViewCell()
-            cell.textLabel?.text = String(itemIdentifier.title)
-            return cell
-        }
+                let cell = UITableViewCell()
+                cell.textLabel?.text = String(itemIdentifier.title)
+                return cell
+            }
         snapshot.appendSections([.main])
         snapshot.appendItems(items, toSection: .main)
         updateDataSource()
